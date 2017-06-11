@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pomodoro Clock</title>
+	<meta charset="utf-8"/>
+	
+	<link href="css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="css/pomodoro.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+	<div class="content-panel">
+		
+		<!-- Title Panel -->
+		<div id="title">
+			<span class="text-center"><h1>Pomodoro Clock</h1></span>		
+		</div>
+		
+		<!-- Timer Controls -->
+		<div id="setTimer">		
+
+			<div class="adjust">
+				<h2 class="text-center label">Session</h2>
+			</div>
+			
+			<div class="adjust">
+				<h2 class="text-center label">Break</h2>
+			</div>
+			
+			<div class="controls">
+					
+					<i class="increment fa fa-angle-up" id="session-increment"></i>
+					<span id="session-time">25</span>
+					<i class="decrement fa fa-angle-down" id="session-decrement"></i>
+						
+			</div>
+			
+			<div class="controls">
+				
+					<i class="increment fa fa-angle-up" id="break-increment"></i>
+					<span id="break-time">5</span>
+					<i class="decrement fa fa-angle-down" id="break-decrement"></i>
+					
+			</div>				
+		</div>
+		
+		<!-- Clock -->
+		<div id="timer">
+			
+			<div id="clock">
+			
+				<div class="digits" id="hours_10">
+					<img src="images/0-0_domino.png" alt="0">	
+				</div>
+				
+				<div class="digits" id="hours_1">
+					<img src="images/0-0_domino.png" alt="0">				
+				</div>
+				
+				<div class="digits divider">
+					<p>:</p>				
+				</div>
+				
+				<div class="digits" id="minutes_10">
+					<img src="images/1-1_domino.png" alt="2">	
+				</div>
+				
+				<div class="digits" id="minutes_1">
+					<img src="images/3-2_domino.png" alt="5">				
+				</div>
+				
+				<div class="digits divider">
+					<p>:</p>				
+				</div>
+				
+				<div class="digits" id="seconds_10">
+					<img src="images/0-0_domino.png" alt="0">	
+				</div>
+				
+				<div class="digits" id="minutes_1">
+					<img src="images/0-0_domino.png" alt="0">				
+				</div>
+			
+			</div>
+	
+		</div>
+
+		<!-- Clock Controls -->		
+		<div class="wrapper">
+			<div id="start">
+				<button>Start</button>			
+			</div>
+			
+			<div id="stop">
+				<button>Stop</button>			
+			</div>
+				
+			<div id="reset">
+				<button>Reset</button>				
+			</div>			
+		</div>	
+				
+	</div>
+
+<!--	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/pomodoro.js"></script>
+-->
+</body>
+</html>
