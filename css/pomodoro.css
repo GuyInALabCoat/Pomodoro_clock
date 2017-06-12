@@ -9,7 +9,7 @@ html, body {
 }
 
 div, td {
-	border: 1px solid red;
+	/*border: 1px solid red*/;
 }
 
 .content-panel {
@@ -124,7 +124,7 @@ i, .controls span {
 	height: 100%;
 }
 
-#start button:hover {
+button:hover {
 	color: green;
 }
 
