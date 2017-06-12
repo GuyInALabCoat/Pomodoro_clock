@@ -34,9 +34,9 @@ $(document).ready( function () {
 
 function start() {
 	
-	update(10,12,25);
+	var test = $('#test');
 	
-	/*var clock = session + new Date().getTime();
+	var clock = session + new Date().getTime();
 	
 	var x = setInterval( function() {
 		
@@ -50,9 +50,14 @@ function start() {
 		
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 		
-				
+		update(hours, minutes, seconds);
 		
-	}, 1000);*/
+		if (distance < 0) {
+			clearInterval(x);
+			update(0, 25, 0);		
+		}		
+		
+	}, 1000);
 	
 }
 
