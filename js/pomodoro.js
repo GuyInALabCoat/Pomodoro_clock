@@ -48,9 +48,11 @@ function startClock(setting) {
 		if (time === 0){
 			
 			if (setting === "session"){
-				startClock("break");			
+				startClock("break");	
+				$('#audio').get(0).play();		
 			}	else {
-				startClock("session");			
+				startClock("session");
+				$('#audio').get(0).play();			
 			}		
 			
 		} else {
