@@ -163,6 +163,16 @@ function decrementBreak(){
 	}		
 }
 
+function reset(){
+	
+	clockStates["session"] = (25 * 60);
+	clockStates["break"] = (5 * 60);
+	$('#session-time').html(25);
+	$('#break-time').html(5);
+	stopClock();	
+	
+}
+
 $(document).ready( function () {
 		
 	initializeImageArray();
@@ -189,5 +199,7 @@ $(document).ready( function () {
 	$('#break-increment').on('click', incrementBreak);
 	
 	$('#break-decrement').on('click', decrementBreak);
+	
+	$('#reset').on('click', reset);
 
 });
