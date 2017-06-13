@@ -1,8 +1,19 @@
 var digits = new Array(13);
 
-var session = 1500000;
+var clockStates = {"session":25*60, "break":5*60};
+var time = 0;
+var currentInterval = null;
+var active = false;
 
-function initialize() {
+var hours_10 = 0;
+var hours_1 = 0;
+var minutes_10 = 0;
+var minutes_1 = 0;
+var seconds_10 = 0;
+var seconds_1 = 0;
+
+
+function initializeImageArray() {
 
 	for (var i = 0; i <= 12; i++) {
 		digits[i] = new Array();
@@ -24,58 +35,159 @@ function initialize() {
 	
 }
 
-$(document).ready( function () {
-		
-	initialize();
-		
-	$('#start').on('click', start);
-
-});
-
-function start() {
+function startClock(setting) {
 	
-	var test = $('#test');
+	clearInterval(currentInterval);
+		
+	time = clockStates[setting];
 	
-	var clock = session + new Date().getTime();
+	active = true;
 	
-	var x = setInterval( function() {
+	currentInterval = setInterval( function() {
 		
-		var now = new Date().getTime();
+		if (time === 0){
+			
+			if (setting === "session"){
+				startClock("break");			
+			}	else {
+				startClock("session");			
+			}		
+			
+		} else {
+			time = time - 1;		
+		}
 		
-		var distance = clock - now;
-		
-		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-		
-		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-		
-		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
-		update(hours, minutes, seconds);
-		
-		if (distance < 0) {
-			clearInterval(x);
-			update(0, 25, 0);		
-		}		
+		updateDigits();
 		
 	}, 1000);
-	
 }
 
-function update(hours, minutes, seconds) {
-	
-	var hours_10 = Math.floor(hours / 10);
-	var hours_1 = hours % 10;
-	
-	var minutes_10 = Math.floor(minutes / 10);
-	var minutes_1 = minutes % 10;
-	
-	var seconds_10 = Math.floor(seconds / 10);
-	var seconds_1 = seconds % 10;
-	
-	$('#hours_10 img').attr('src', digits[hours_10][0]);
-	$('#hours_1 img').attr('src', digits[hours_1][0]);
-	$('#minutes_10 img').attr('src', digits[minutes_10][0]);
-	$('#minutes_1 img').attr('src', digits[minutes_1][0]);
-	$('#seconds_10 img').attr('src', digits[seconds_10][0]);
-	$('#seconds_1 img').attr('src', digits[seconds_1][0]);
+function stopClock(){
+	clearInterval(currentInterval);
+	active = false;
+	time = clockStates["session"];
+	updateDigits();
+	$('#start').html("Start");	
 }
+
+function pauseClock(){
+	clearInterval(currentInterval);
+	active = false;
+}
+
+function updateDigits() {
+	
+	var curr_hours = Math.floor((time % (60 * 60 * 24))/(60 * 60));
+	var curr_minutes = Math.floor((time % (60 * 60)) / 60);
+	var curr_seconds = Math.floor((time % 60));
+	
+	var curr_hours_10 = Math.floor(curr_hours / 10);
+	var curr_hours_1 = curr_hours % 10;	
+	
+	var curr_minutes_10 = Math.floor(curr_minutes / 10);
+	var curr_minutes_1 = curr_minutes % 10;
+	
+	var curr_seconds_10 = Math.floor(curr_seconds / 10);
+	var curr_seconds_1 = curr_seconds % 10;
+	
+	displayClock(curr_hours_10, curr_hours_1, curr_minutes_10, curr_minutes_1, curr_seconds_10, curr_seconds_1);	
+}
+
+function displayClock(h_10, h_1, m_10, m_1, s_10, s_1) {
+	
+	if (hours_10 !== h_10){
+		hours_10 = h_10;
+		$('#hours_10 img').attr('src', digits[hours_10][Math.floor(Math.random() * digits[hours_10].length)]);
+	}	
+	
+	if (hours_1 !== h_1){
+		hours_1 = h_1;
+		$('#hours_1 img').attr('src', digits[hours_1][Math.floor(Math.random() * digits[hours_1].length)]);	
+	}
+	
+	if (minutes_10 !== m_10){
+		minutes_10 = m_10;
+		$('#minutes_10 img').attr('src', digits[minutes_10][Math.floor(Math.random() * digits[minutes_10].length)]);	
+	}
+	
+	if (minutes_1 !== m_1){
+		minutes_1 = m_1;
+		$('#minutes_1 img').attr('src', digits[minutes_1][Math.floor(Math.random() * digits[minutes_1].length)]);	
+	}
+	
+	if (seconds_10 !== s_10){
+		seconds_10 = s_10;
+		$('#seconds_10 img').attr('src', digits[seconds_10][Math.floor(Math.random() * digits[seconds_10].length)]);	
+	}
+	
+	
+	if (seconds_1 !== s_1){
+		seconds_1 = s_1;
+		$('#seconds_1 img').attr('src', digits[seconds_1][Math.floor(Math.random() * digits[seconds_1].length)]);	
+	}	
+}
+
+function incrementTimer(){
+	
+	if (time < (60 * 60 * 24)){
+		time = time + 60;
+		clockStates["session"] = clockStates["session"] + 60;
+		updateDigits();
+		$('#session-time').html(parseInt($('#session-time').html(), 10) + 1);
+	}
+}
+
+function decrementTimer(){
+
+	if (time >= (60 * 2)) {
+		time = time - 60;
+		clockStates["session"] = clockStates["session"] - 60;
+		updateDigits();
+		$('#session-time').html(parseInt($('#session-time').html(), 10) - 1);
+	}
+}
+
+function incrementBreak(){
+	
+	if (clockStates["break"] < clockStates["session"]){
+		clockStates["break"] = clockStates["break"] + 60;
+		$('#break-time').html(parseInt($('#break-time').html(), 10) + 1);	
+	}
+}
+
+function decrementBreak(){
+	
+	if (clockStates["break"] > 60){
+		clockStates["break"] = clockStates["break"] - 60;
+		$('#break-time').html(parseInt($('#break-time').html(), 10) - 1);
+	}		
+}
+
+$(document).ready( function () {
+		
+	initializeImageArray();
+	time = clockStates["session"];
+		
+	$('#start').on('click', function () {
+		
+		if (!active){
+			startClock("session");	
+			$('#start').html("Pause");
+		}	else {
+			pauseClock();
+			$('#start').html("Start");		
+		}	
+			
+	});
+	
+	$('#stop').on('click', stopClock);
+	
+	$('#session-increment').on('click', incrementTimer);
+	
+	$('#session-decrement').on('click', decrementTimer);
+	
+	$('#break-increment').on('click', incrementBreak);
+	
+	$('#break-decrement').on('click', decrementBreak);
+
+});
