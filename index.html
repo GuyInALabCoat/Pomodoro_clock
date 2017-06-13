@@ -7,6 +7,7 @@
 	<link href="css/reset.css" rel="stylesheet" type="text/css" />
 	<link href="css/pomodoro.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,700" rel="stylesheet"> 
 </head>
 
 <body>
@@ -90,17 +91,26 @@
 		<!-- Clock Controls -->		
 		<div class="wrapper">
 			<div>
-				<button id="start">Start</button>			
+				<i class="fa fa-play buttons" id="start" aria-hidden="true"></i>		
 			</div>
 			
 			<div>
-				<button id="stop">Stop</button>			
+				<i class="fa fa-stop buttons" id="stop" aria-hidden="true"></i>		
 			</div>
 				
 			<div>
-				<button id="reset">Reset</button>				
+				<i class="fa fa-refresh buttons" id="reset" aria-hidden="true"></i>				
 			</div>			
 		</div>	
+		
+		
+		<div id="info">
+			<p>
+				The Pomodoro Technique is a time management system where you work for a 
+				period of time then take a break, and repeat as necessary.	<br/> <br/>
+				Use this clock to help you manage your time using this technique.		
+			</p>		
+		</div>
 				
 	</div>
 

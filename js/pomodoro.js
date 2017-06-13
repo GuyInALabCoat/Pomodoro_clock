@@ -67,7 +67,7 @@ function stopClock(){
 	active = false;
 	time = clockStates["session"];
 	updateDigits();
-	$('#start').html("Start");	
+	$('#start').removeClass("fa fa-pause").addClass("fa fa-start");	
 }
 
 function pauseClock(){
@@ -182,10 +182,10 @@ $(document).ready( function () {
 		
 		if (!active){
 			startClock("session");	
-			$('#start').html("Pause");
+			$('#start').removeClass("fa fa-start").addClass("fa fa-pause");
 		}	else {
 			pauseClock();
-			$('#start').html("Start");		
+			$('#start').removeClass("fa fa-pause").addClass("fa fa-start");		
 		}	
 			
 	});
